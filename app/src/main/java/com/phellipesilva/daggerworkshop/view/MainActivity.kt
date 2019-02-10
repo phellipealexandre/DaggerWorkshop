@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.phellipesilva.daggerworkshop.R
 import com.phellipesilva.daggerworkshop.database.User
 import com.phellipesilva.daggerworkshop.di.DaggerMainComponent
+import com.phellipesilva.daggerworkshop.di.DatabaseModule
 import com.phellipesilva.daggerworkshop.di.MainModule
+import com.phellipesilva.daggerworkshop.di.ServiceModule
 import com.phellipesilva.daggerworkshop.presenter.MainPresenter
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -38,6 +40,8 @@ class MainActivity : AppCompatActivity() {
     private fun initPresenter() {
         val mainDaggerComponent = DaggerMainComponent.builder()
             .mainModule(MainModule(this))
+            .databaseModule(DatabaseModule(applicationContext))
+            .serviceModule(ServiceModule())
             .build()
 
         mainPresenter = mainDaggerComponent.getMainPresenter()
