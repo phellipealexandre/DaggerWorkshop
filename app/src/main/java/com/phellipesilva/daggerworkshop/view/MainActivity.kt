@@ -5,14 +5,14 @@ import android.os.Bundle
 import androidx.room.Room
 import com.phellipesilva.daggerworkshop.R
 import com.phellipesilva.daggerworkshop.business.BusinessClassA
-import com.phellipesilva.daggerworkshop.business.BusinessClassB
-import com.phellipesilva.daggerworkshop.business.HelperClass
 import com.phellipesilva.daggerworkshop.database.User
 import com.phellipesilva.daggerworkshop.database.UserDatabase
 import com.phellipesilva.daggerworkshop.interactor.MainInteractor
 import com.phellipesilva.daggerworkshop.navigation.Navigator
 import com.phellipesilva.daggerworkshop.presenter.MainPresenter
 import com.phellipesilva.daggerworkshop.service.MainService
+import com.phellipesilva.featuretwo.business.BusinessClassB
+import com.phellipesilva.featuretwo.business.HelperClass
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
             .getUserDAO()
 
         val mainService = Retrofit.Builder()
-            .baseUrl("https://jsonplaceholder.typicode.com/")
+            .baseUrl("https://jsonplaceholder.typicode.com")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(MainService::class.java)

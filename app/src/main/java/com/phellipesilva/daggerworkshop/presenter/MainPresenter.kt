@@ -1,11 +1,11 @@
 package com.phellipesilva.daggerworkshop.presenter
 
 import com.phellipesilva.daggerworkshop.business.BusinessClassA
-import com.phellipesilva.daggerworkshop.business.BusinessClassB
 import com.phellipesilva.daggerworkshop.database.User
 import com.phellipesilva.daggerworkshop.interactor.MainInteractor
 import com.phellipesilva.daggerworkshop.navigation.Navigator
 import com.phellipesilva.daggerworkshop.view.MainActivity
+import com.phellipesilva.featuretwo.business.BusinessClassB
 
 class MainPresenter(
     private val mainActivity: MainActivity,
@@ -27,8 +27,8 @@ class MainPresenter(
     }
 
     fun navigatesToFeatureTwo(user: User) {
-        val randomId = businessClassA.generateRandomFromUser(user)
-        val processedRandomId = businessClassB.doNothing(randomId)
-        navigator.navigateToFeatureTwo(user, processedRandomId)
+        val crazyNumber = businessClassA.generateNumberFromUser(user)
+        val processedCrazyId = businessClassB.doNothing(crazyNumber)
+        navigator.navigateToFeatureTwo(user.id, processedCrazyId)
     }
 }

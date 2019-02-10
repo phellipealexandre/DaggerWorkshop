@@ -14,7 +14,7 @@ class MainInteractor(
     private val executor: Executor
 ) {
     fun fetchAndStoreUsersFromServer(successCallback: (List<User>) -> (Unit)) {
-        mainService.getRates().enqueue(object : Callback<List<User>> {
+        mainService.getAllUsers().enqueue(object : Callback<List<User>> {
             override fun onFailure(call: Call<List<User>>, t: Throwable) {
             }
 

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FeatureTwo</string>
+    <string name="error_msg">An error happened, sorry =(</string>
+    <string name="loading_msg">Fetching user details... Please wait</string>
 </resources>

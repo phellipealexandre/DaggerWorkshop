@@ -5,14 +5,12 @@ import android.content.Intent
 import com.phellipesilva.daggerworkshop.database.User
 import com.phellipesilva.featuretwo.view.FeatureTwoActivity
 
-class Navigator(
-    private val context: Context
-) {
+class Navigator(private val context: Context) {
 
-    fun navigateToFeatureTwo(user: User, id: Int) {
+    fun navigateToFeatureTwo(id: Int, navigationId: Int) {
         val intent = Intent(context, FeatureTwoActivity::class.java)
-        intent.putExtra("user", user.name)
         intent.putExtra("id", id)
+        intent.putExtra("navigationId", navigationId)
         context.startActivity(intent)
     }
 }

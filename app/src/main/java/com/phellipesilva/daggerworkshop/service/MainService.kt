@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface MainService {
 
-    @GET("users")
-    fun getRates(): Call<List<User>>
+    @GET("/users")
+    fun getAllUsers(): Call<List<User>>
 }
