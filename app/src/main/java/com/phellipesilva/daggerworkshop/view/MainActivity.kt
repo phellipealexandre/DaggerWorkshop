@@ -7,6 +7,8 @@ import com.phellipesilva.daggerworkshop.R
 import com.phellipesilva.daggerworkshop.business.BusinessClassA
 import com.phellipesilva.daggerworkshop.database.User
 import com.phellipesilva.daggerworkshop.database.UserDatabase
+import com.phellipesilva.daggerworkshop.di.DaggerMainComponent
+import com.phellipesilva.daggerworkshop.di.MainModule
 import com.phellipesilva.daggerworkshop.interactor.MainInteractor
 import com.phellipesilva.daggerworkshop.navigation.Navigator
 import com.phellipesilva.daggerworkshop.presenter.MainPresenter
@@ -45,23 +47,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initPresenter() {
-        val userDAO = Room.databaseBuilder(this, UserDatabase::class.java, "UserDatabase")
+        val mainDaggerComponent = DaggerMainComponent.builder()
+            .mainModule(MainModule(this))
             .build()
-            .getUserDAO()
 
-        val mainService = Retrofit.Builder()
-            .baseUrl("https://jsonplaceholder.typicode.com")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(MainService::class.java)
-
-        val navigator = Navigator(this)
-
-        val helperClass = HelperClass()
-        val classA = BusinessClassA(helperClass)
-        val classB = BusinessClassB(helperClass)
-
-        val mainInteractor = MainInteractor(mainService, userDAO, Executors.newSingleThreadExecutor())
+        val navigator = mainDaggerComponent.getNavigator()
+        val classA = mainDaggerComponent.getBusinessClassA()
+        val classB = mainDaggerComponent.getBusinessClassB()
+        val mainInteractor = mainDaggerComponent.getMainInteractor()
         mainPresenter = MainPresenter(this, mainInteractor, navigator, classA, classB)
     }
 }
