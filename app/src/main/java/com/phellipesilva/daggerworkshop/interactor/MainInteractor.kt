@@ -3,12 +3,14 @@ package com.phellipesilva.daggerworkshop.interactor
 import com.phellipesilva.daggerworkshop.database.User
 import com.phellipesilva.daggerworkshop.database.UserDAO
 import com.phellipesilva.daggerworkshop.service.MainService
+import dagger.Reusable
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.concurrent.Executor
 import javax.inject.Inject
 
+@Reusable
 class MainInteractor @Inject constructor(
     private val mainService: MainService,
     private val userDAO: UserDAO,
