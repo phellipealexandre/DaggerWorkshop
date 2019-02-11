@@ -3,11 +3,9 @@ package com.phellipesilva.daggerworkshop.view
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.phellipesilva.daggerworkshop.R
+import com.phellipesilva.daggerworkshop.application.MyApplication
 import com.phellipesilva.daggerworkshop.database.User
-import com.phellipesilva.daggerworkshop.di.DaggerMainComponent
-import com.phellipesilva.daggerworkshop.di.DatabaseModule
 import com.phellipesilva.daggerworkshop.di.MainModule
-import com.phellipesilva.daggerworkshop.di.ServiceModule
 import com.phellipesilva.daggerworkshop.presenter.MainPresenter
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -39,12 +37,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initDependencies() {
-        val mainDaggerComponent = DaggerMainComponent.builder()
-            .mainModule(MainModule(this))
-            .databaseModule(DatabaseModule(applicationContext))
-            .serviceModule(ServiceModule())
-            .build()
+        val application = applicationContext as MyApplication
 
-        mainDaggerComponent.inject(this)
+        application.mainComponent
+            .plusMainModule(MainModule(this))
+            .inject(this)
     }
 }

@@ -1,9 +1,9 @@
 package com.phellipesilva.daggerworkshop.di
 
 import com.phellipesilva.daggerworkshop.view.MainActivity
-import dagger.Component
+import dagger.Subcomponent
 
-@Component(modules = [MainModule::class, DatabaseModule::class, ServiceModule::class])
+@Subcomponent(modules = [MainModule::class])
 interface MainComponent {
     fun inject(mainActivity: MainActivity)
 }
