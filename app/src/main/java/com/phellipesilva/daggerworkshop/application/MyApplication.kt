@@ -7,7 +7,7 @@ class MyApplication : Application() {
 
     val mainComponent: ApplicationComponent by lazy {
         DaggerApplicationComponent.builder()
-            .databaseModule(DatabaseModule(this))
+            .applicationContext(this)
             .build()
     }
 }

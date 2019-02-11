@@ -8,11 +8,11 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class DatabaseModule(private val context: Context) {
+class DatabaseModule {
 
     @Singleton
     @Provides
-    fun providesUserDAO() =
+    fun providesUserDAO(context: Context) =
         Room.databaseBuilder(context, UserDatabase::class.java, "UserDatabase")
             .build()
             .getUserDAO()
