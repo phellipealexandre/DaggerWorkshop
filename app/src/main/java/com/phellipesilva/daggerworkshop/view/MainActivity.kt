@@ -10,23 +10,24 @@ import com.phellipesilva.daggerworkshop.di.MainModule
 import com.phellipesilva.daggerworkshop.di.ServiceModule
 import com.phellipesilva.daggerworkshop.presenter.MainPresenter
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var mainPresenter: MainPresenter
+    @Inject
+    lateinit var mainPresenter: MainPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        initPresenter()
+        initDependencies()
 
         mainPresenter.getUserFromDatabase()
 
         swipeRefreshLayout.setOnRefreshListener {
             mainPresenter.updateUsersFromServer()
         }
-
     }
 
     fun showUsers(users: List<User>) {
@@ -37,13 +38,13 @@ class MainActivity : AppCompatActivity() {
         swipeRefreshLayout.isRefreshing = false
     }
 
-    private fun initPresenter() {
+    private fun initDependencies() {
         val mainDaggerComponent = DaggerMainComponent.builder()
             .mainModule(MainModule(this))
             .databaseModule(DatabaseModule(applicationContext))
             .serviceModule(ServiceModule())
             .build()
 
-        mainPresenter = mainDaggerComponent.getMainPresenter()
+        mainDaggerComponent.inject(this)
     }
 }
