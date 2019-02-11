@@ -7,8 +7,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.concurrent.Executor
+import javax.inject.Inject
 
-class MainInteractor(
+class MainInteractor @Inject constructor(
     private val mainService: MainService,
     private val userDAO: UserDAO,
     private val executor: Executor

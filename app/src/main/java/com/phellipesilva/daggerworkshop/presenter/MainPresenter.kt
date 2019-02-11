@@ -6,8 +6,9 @@ import com.phellipesilva.daggerworkshop.interactor.MainInteractor
 import com.phellipesilva.daggerworkshop.navigation.Navigator
 import com.phellipesilva.daggerworkshop.view.MainActivity
 import com.phellipesilva.featuretwo.business.BusinessClassB
+import javax.inject.Inject
 
-class MainPresenter(
+class MainPresenter @Inject constructor(
     private val mainActivity: MainActivity,
     private val mainInteractor: MainInteractor,
     private val navigator: Navigator,
