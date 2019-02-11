@@ -1,5 +1,6 @@
 package com.phellipesilva.daggerworkshop.application
 
+import android.app.Activity
 import android.app.Application
 import com.phellipesilva.daggerworkshop.di.*
 
@@ -11,3 +12,5 @@ class MyApplication : Application() {
             .build()
     }
 }
+
+val Activity.injector get() = (application as MyApplication).mainComponent

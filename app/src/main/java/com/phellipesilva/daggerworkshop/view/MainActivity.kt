@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.phellipesilva.daggerworkshop.R
 import com.phellipesilva.daggerworkshop.application.MyApplication
+import com.phellipesilva.daggerworkshop.application.injector
 import com.phellipesilva.daggerworkshop.database.User
 import com.phellipesilva.daggerworkshop.di.MainModule
 import com.phellipesilva.daggerworkshop.presenter.MainPresenter
@@ -37,9 +38,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initDependencies() {
-        val application = applicationContext as MyApplication
-
-        application.mainComponent
+        injector
             .plusMainModule(MainModule(this))
             .inject(this)
     }

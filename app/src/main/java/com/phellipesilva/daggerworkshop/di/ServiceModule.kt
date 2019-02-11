@@ -8,10 +8,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-class ServiceModule {
+object ServiceModule {
 
     @Singleton
     @Provides
+    @JvmStatic
     fun providesMainService(): MainService = Retrofit.Builder()
         .baseUrl("https://jsonplaceholder.typicode.com")
         .addConverterFactory(GsonConverterFactory.create())
