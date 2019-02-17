@@ -6,11 +6,11 @@ import com.phellipesilva.daggerworkshop.di.*
 
 class MyApplication : Application() {
 
-    val mainComponent: ApplicationComponent by lazy {
+    val applicationComponent: ApplicationComponent by lazy {
         DaggerApplicationComponent.builder()
             .applicationContext(this)
             .build()
     }
 }
 
-val Activity.injector get() = (application as MyApplication).mainComponent
+val Activity.applicationInjector get() = (application as MyApplication).applicationComponent
