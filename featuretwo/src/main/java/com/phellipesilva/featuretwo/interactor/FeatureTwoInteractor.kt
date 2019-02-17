@@ -5,8 +5,9 @@ import com.phellipesilva.featuretwo.service.FeatureTwoService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-internal class FeatureTwoInteractor(private val featureTwoService: FeatureTwoService) {
+class FeatureTwoInteractor @Inject constructor(private val featureTwoService: FeatureTwoService) {
 
     fun fetchUserDetailsFromServer(id: Int, successCallback: (List<User>) -> (Unit), errorCallback: () -> (Unit)) {
         featureTwoService.getSingleUser(id).enqueue(object : Callback<List<User>> {

@@ -1,23 +1,19 @@
 package com.phellipesilva.featuretwo.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.phellipesilva.featuretwo.R
-import com.phellipesilva.featuretwo.business.BusinessClassB
-import com.phellipesilva.featuretwo.business.HelperClass
-import com.phellipesilva.featuretwo.interactor.FeatureTwoInteractor
+import com.phellipesilva.featuretwo.di.DaggerFeatureTwoComponent
 import com.phellipesilva.featuretwo.model.User
 import com.phellipesilva.featuretwo.presenter.FeatureTwoPresenter
-import com.phellipesilva.featuretwo.service.FeatureTwoService
-import com.phellipesilva.featuretwo.utils.ConnectionManager
 import kotlinx.android.synthetic.main.activity_feature_two.*
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
 class FeatureTwoActivity : AppCompatActivity() {
 
-    private lateinit var featureTwoPresenter: FeatureTwoPresenter
+    @Inject
+    lateinit var featureTwoPresenter: FeatureTwoPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,16 +44,11 @@ class FeatureTwoActivity : AppCompatActivity() {
     }
 
     private fun initPresenter() {
-        val featureTwoService = Retrofit.Builder()
-            .baseUrl("https://jsonplaceholder.typicode.com")
-            .addConverterFactory(GsonConverterFactory.create())
+        DaggerFeatureTwoComponent
+            .builder()
+            .context(applicationContext)
+            .featureTwoActivity(this)
             .build()
-            .create(FeatureTwoService::class.java)
-
-        val helperClass = HelperClass()
-        val businessClassB = BusinessClassB(helperClass)
-        val featureTwoInteractor = FeatureTwoInteractor(featureTwoService)
-        val connectionManager = ConnectionManager(this)
-        featureTwoPresenter = FeatureTwoPresenter(this, businessClassB, featureTwoInteractor, connectionManager)
+            .inject(this)
     }
 }

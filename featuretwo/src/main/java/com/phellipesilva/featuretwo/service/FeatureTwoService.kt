@@ -5,7 +5,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-internal interface FeatureTwoService {
+interface FeatureTwoService {
 
     @GET("/users")
     fun getSingleUser(@Query("id") id: Int): Call<List<User>>
