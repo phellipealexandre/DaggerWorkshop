@@ -4,8 +4,9 @@ import com.phellipesilva.featuretwo.business.BusinessClassB
 import com.phellipesilva.featuretwo.interactor.FeatureTwoInteractor
 import com.phellipesilva.featuretwo.utils.ConnectionManager
 import com.phellipesilva.featuretwo.view.FeatureTwoActivity
+import javax.inject.Inject
 
-internal class FeatureTwoPresenter(
+class FeatureTwoPresenter @Inject constructor(
     private val featureTwoActivity: FeatureTwoActivity,
     private val businessClassB: BusinessClassB,
     private val featureTwoInteractor: FeatureTwoInteractor,
