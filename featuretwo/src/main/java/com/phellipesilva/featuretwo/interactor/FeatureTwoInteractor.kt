@@ -9,8 +9,9 @@ import javax.inject.Inject
 
 class FeatureTwoInteractor @Inject constructor(private val featureTwoService: FeatureTwoService) {
 
-    fun fetchUserDetailsFromServer(id: Int, successCallback: (List<User>) -> (Unit), errorCallback: () -> (Unit)) {
-        featureTwoService.getSingleUser(id).enqueue(object : Callback<List<User>> {
+    fun fetchUserDetailsFromServer(id: Int, successCallback: (List<User>) -> (Unit), errorCallback: () -> (Unit)): Call<List<User>> {
+        val call = featureTwoService.getSingleUser(id)
+        call.enqueue(object : Callback<List<User>> {
             override fun onFailure(call: Call<List<User>>, t: Throwable) {
                 errorCallback.invoke()
             }
@@ -22,5 +23,7 @@ class FeatureTwoInteractor @Inject constructor(private val featureTwoService: Fe
             }
 
         })
+
+        return call
     }
 }

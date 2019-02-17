@@ -3,7 +3,6 @@ package com.phellipesilva.daggerworkshop.view
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.phellipesilva.daggerworkshop.R
-import com.phellipesilva.daggerworkshop.application.MyApplication
 import com.phellipesilva.daggerworkshop.application.injector
 import com.phellipesilva.daggerworkshop.database.User
 import com.phellipesilva.daggerworkshop.di.MainModule
@@ -27,6 +26,11 @@ class MainActivity : AppCompatActivity() {
         swipeRefreshLayout.setOnRefreshListener {
             mainPresenter.updateUsersFromServer()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mainPresenter.cancelRequest()
     }
 
     fun showUsers(users: List<User>) {

@@ -16,8 +16,9 @@ class MainInteractor @Inject constructor(
     private val userDAO: UserDAO,
     private val executor: Executor
 ) {
-    fun fetchAndStoreUsersFromServer(successCallback: (List<User>) -> (Unit)) {
-        mainService.getAllUsers().enqueue(object : Callback<List<User>> {
+    fun fetchAndStoreUsersFromServer(successCallback: (List<User>) -> (Unit)): Call<List<User>> {
+        val call = mainService.getAllUsers()
+        call.enqueue(object : Callback<List<User>> {
             override fun onFailure(call: Call<List<User>>, t: Throwable) {
             }
 
@@ -29,6 +30,8 @@ class MainInteractor @Inject constructor(
             }
 
         })
+
+        return call
     }
 
     fun fetchUserFromDatabase(callback: (List<User>) -> Unit) {
