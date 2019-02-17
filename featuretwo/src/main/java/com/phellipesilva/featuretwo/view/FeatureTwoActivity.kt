@@ -19,12 +19,17 @@ class FeatureTwoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feature_two)
 
-        initPresenter()
-        showNavigationIdToast()
+        inject()
         fetchUserDetails()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        featureTwoPresenter.cancelRequest()
+    }
+
     internal fun showUser(user: User) {
+        showNavigationIdToast()
         textView.text = "This user named ${user.name} has an username ${user.username} and email ${user.email}"
     }
 
@@ -43,7 +48,7 @@ class FeatureTwoActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun initPresenter() {
+    private fun inject() {
         DaggerFeatureTwoComponent
             .builder()
             .context(applicationContext)

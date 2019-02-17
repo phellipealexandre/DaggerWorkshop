@@ -2,8 +2,10 @@ package com.phellipesilva.featuretwo.presenter
 
 import com.phellipesilva.featuretwo.business.BusinessClassB
 import com.phellipesilva.featuretwo.interactor.FeatureTwoInteractor
+import com.phellipesilva.featuretwo.model.User
 import com.phellipesilva.featuretwo.utils.ConnectionManager
 import com.phellipesilva.featuretwo.view.FeatureTwoActivity
+import retrofit2.Call
 import javax.inject.Inject
 
 class FeatureTwoPresenter @Inject constructor(
@@ -13,6 +15,8 @@ class FeatureTwoPresenter @Inject constructor(
     private val connectionManager: ConnectionManager
 ) {
 
+    private var fetchUserCall: Call<List<User>>? = null
+
     fun fetchUserDetails(id: Int) {
         if (connectionManager.isConnected() && businessClassB.returnTrue()) {
             fetchUser(id)
@@ -21,8 +25,12 @@ class FeatureTwoPresenter @Inject constructor(
         }
     }
 
+    fun cancelRequest() {
+        fetchUserCall?.cancel()
+    }
+
     private fun fetchUser(id: Int) {
-        featureTwoInteractor.fetchUserDetailsFromServer(id, {
+        fetchUserCall = featureTwoInteractor.fetchUserDetailsFromServer(id, {
             featureTwoActivity.showUser(it.first())
         }, {
             featureTwoActivity.showError()

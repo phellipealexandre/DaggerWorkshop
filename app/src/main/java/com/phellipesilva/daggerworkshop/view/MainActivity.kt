@@ -28,6 +28,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mainPresenter.cancelRequest()
+    }
+
     fun showUsers(users: List<User>) {
         val mainAdapter = MainAdapter(this, users)
         mainAdapter.setOnUserClickListener { mainPresenter.navigatesToFeatureTwo(it) }

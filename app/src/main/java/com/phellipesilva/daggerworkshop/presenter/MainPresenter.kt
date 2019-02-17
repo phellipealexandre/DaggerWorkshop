@@ -6,6 +6,7 @@ import com.phellipesilva.daggerworkshop.interactor.MainInteractor
 import com.phellipesilva.daggerworkshop.navigation.Navigator
 import com.phellipesilva.daggerworkshop.view.MainActivity
 import com.phellipesilva.featuretwo.business.BusinessClassB
+import retrofit2.Call
 import javax.inject.Inject
 
 class MainPresenter @Inject constructor(
@@ -15,6 +16,9 @@ class MainPresenter @Inject constructor(
     private val businessClassA: BusinessClassA,
     private val businessClassB: BusinessClassB
 ) {
+
+    private var updateUsersCall: Call<List<User>>? = null
+
     fun updateUsersFromServer() {
         mainInteractor.fetchAndStoreUsersFromServer {
             mainActivity.showUsers(it)
@@ -31,5 +35,9 @@ class MainPresenter @Inject constructor(
         val crazyNumber = businessClassA.generateNumberFromUser(user)
         val processedCrazyId = businessClassB.doNothing(crazyNumber)
         navigator.navigateToFeatureTwo(user.id, processedCrazyId)
+    }
+
+    fun cancelRequest() {
+        updateUsersCall?.cancel()
     }
 }
