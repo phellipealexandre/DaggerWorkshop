@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.phellipesilva.featuretwo.R
-import com.phellipesilva.featuretwo.di.DaggerFeatureTwoComponent
+import com.phellipesilva.featuretwo.di.FeatureTwoComponentProvider
 import com.phellipesilva.featuretwo.model.User
 import com.phellipesilva.featuretwo.presenter.FeatureTwoPresenter
 import kotlinx.android.synthetic.main.activity_feature_two.*
@@ -49,11 +49,8 @@ class FeatureTwoActivity : AppCompatActivity() {
     }
 
     private fun inject() {
-        DaggerFeatureTwoComponent
-            .builder()
-            .context(applicationContext)
-            .featureTwoActivity(this)
-            .build()
-            .inject(this)
+        val featureTwoComponentProvider = applicationContext as FeatureTwoComponentProvider
+        val featureTwoComponent = featureTwoComponentProvider.providesFeatureTwoComponent(this)
+        featureTwoComponent.inject(this)
     }
 }
