@@ -3,8 +3,12 @@
     package="com.phellipesilva.featuretwo">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!--FIX THIS! Theme shouldnt be here-->
     <application>
-        <activity android:name=".view.FeatureTwoActivity"></activity>
+        <activity android:name=".view.FeatureTwoActivity"
+            android:theme="@style/AppThemeFeatureTwo"></activity>
     </application>
 
 </manifest>
